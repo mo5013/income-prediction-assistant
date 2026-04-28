@@ -245,6 +245,26 @@ http://localhost:8501
 
 ---
 
+## Demo
+
+### Example Input
+"I am a 42-year-old male with a Masters degree working in management for 50 hours per week in the United States. I work in the private sector and I am married."
+
+### Example Output
+- Prediction: >50K  
+- Confidence: ~78%  
+- Explanation: Based on factors such as education level, hours worked, and occupation.
+
+### Edge Case Example
+Input:
+"Can you predict my income?"
+
+Output:
+- The system requests additional information  
+- Lists missing required fields instead of making an incorrect prediction
+
+---
+
 ## Reflection
 
 ### Key Learnings
