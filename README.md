@@ -92,7 +92,7 @@ Multiple models were trained and compared using MLflow:
 
 ### Justification
 
-Gradient Boosting achieved the best balance between precision and recall, making it more suitable for classification where both false positives and false negatives matter.
+Gradient Boosting achieved the best balance between precision and recall, making it more suitable for classification tasks where both false positives and false negatives matter.
 
 ---
 
@@ -111,21 +111,19 @@ The best model was selected programmatically based on F1 score.
 
 ## Architecture Overview
 
-The system consists of two main components:
-
 ### 1. Machine Learning Pipeline
 
 * Data preprocessing (cleaning, encoding, scaling)
 * Model training with multiple configurations
 * Experiment tracking using MLflow
-* Best model selection based on F1 score
+* Best model selection
 
 ### 2. LLM-Style Interface (Streamlit)
 
 * Parses natural language input into structured features
 * Loads the trained model (`best_model.joblib`)
 * Generates predictions and explanations
-* Handles missing or incomplete inputs gracefully
+* Handles missing or incomplete inputs
 
 ---
 
@@ -134,9 +132,9 @@ The system consists of two main components:
 ### Workflow
 
 1. User enters a natural language description
-2. The system parses key features
-3. The trained model is invoked
-4. The system returns a prediction with explanation
+2. Features are extracted from text
+3. Model makes prediction
+4. System returns explanation
 
 ### Example Input
 
@@ -165,6 +163,30 @@ Output:
 
 ---
 
+## Demo
+
+### Example Input
+
+"I am a 42-year-old male with a Masters degree working in management for 50 hours per week in the United States. I work in the private sector and I am married."
+
+### Example Output
+
+* Prediction: >50K
+* Confidence: ~75–80%
+* Explanation: Based on education, occupation, and hours worked
+
+### Edge Case Example
+
+Input:
+"Can you predict my income?"
+
+Output:
+
+* System asks for more information
+* Prevents incorrect prediction
+
+---
+
 ## Testing
 
 A full test suite was implemented using pytest:
@@ -175,7 +197,7 @@ A full test suite was implemented using pytest:
 
 Run tests:
 
-```
+```bash
 python -m pytest tests/ -v
 ```
 
@@ -203,27 +225,40 @@ capstone-income-assistant/
 
 ## Setup Instructions
 
-### Install dependencies
+### Quick Start
 
+```bash
+python -m pip install -r requirements.txt
+python src/preprocess.py
+python src/train.py
+python -m streamlit run src/app.py
 ```
+
+---
+
+### Step-by-step
+
+#### Install dependencies
+
+```bash
 python -m pip install -r requirements.txt
 ```
 
-### Run preprocessing
+#### Run preprocessing
 
-```
+```bash
 python src/preprocess.py
 ```
 
-### Train models
+#### Train models
 
-```
+```bash
 python src/train.py
 ```
 
-### Launch app
+#### Launch app
 
-```
+```bash
 python -m streamlit run src/app.py
 ```
 
@@ -235,33 +270,13 @@ python -m streamlit run src/app.py
 
 Build and run:
 
-```
+```bash
 docker build -t income-prediction-assistant .
 docker run -p 8501:8501 income-prediction-assistant
 ```
 
 Open:
 http://localhost:8501
-
----
-
-## Demo
-
-### Example Input
-"I am a 42-year-old male with a Masters degree working in management for 50 hours per week in the United States. I work in the private sector and I am married."
-
-### Example Output
-- Prediction: >50K  
-- Confidence: ~78%  
-- Explanation: Based on factors such as education level, hours worked, and occupation.
-
-### Edge Case Example
-Input:
-"Can you predict my income?"
-
-Output:
-- The system requests additional information  
-- Lists missing required fields instead of making an incorrect prediction
 
 ---
 
@@ -275,19 +290,25 @@ Output:
 
 ### Challenges
 
-* Handling inconsistent natural language
-* Aligning parsed features with model
+* Handling inconsistent natural language inputs
+* Aligning extracted features with model expectations
 
 ### Future Improvements
 
-* Integrate real LLM API
-* Improve parsing robustness
-* Add fairness analysis
+* Integrate a true LLM API
+* Improve parsing accuracy
+* Add fairness and bias analysis
 
 ---
 
 ## Conclusion
 
-This project demonstrates a full ML lifecycle:
+This project demonstrates a full machine learning lifecycle:
 
-* Data → Model → Tracking → Interface → Testing → Deployment
+* Data preprocessing
+* Model training and evaluation
+* Experiment tracking
+* Natural language interface
+* Testing and validation
+* Deployment with Docker
+
