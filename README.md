@@ -187,6 +187,18 @@ Output:
 
 ---
 
+## Demo Video
+
+Watch the demo videos here:
+https://drive.google.com/drive/folders/1LUwbXzYH_jileh23LGW_ti46f1PKr15h?usp=sharing
+
+The demo includes:
+
+* A full prediction example using natural language input
+* An edge case demonstration showing how the system handles missing information
+
+---
+
 ## Testing
 
 A full test suite was implemented using pytest:
